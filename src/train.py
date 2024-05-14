@@ -103,9 +103,7 @@ def main(temp_number=None):
 
     split_point = int(len(data) * 2 / 3)
     data_train = data[:split_point]
-    # data_train = remove_elements_by_percentage(data_train,temp)
-    # print('当前随机移除了{}%的训练集数据'.format(temp))
-    # # data_train = data[:split_point][::5]
+    
     eval_len = int(len(data[split_point:]) / 2)
     data_test = data[split_point:split_point + eval_len]
     data_eval = data[split_point + eval_len:]
@@ -113,52 +111,26 @@ def main(temp_number=None):
     # voc = dill.load(open(r'voc_final_4.pkl', 'rb'))
     ddi_matrix = dill.load(open(r'datas/ddi_A_final.pkl','rb'))
     ddi_4_matrix = dill.load(open(r'datas/ddi_A_final.pkl','rb'))
-    #如果现在是mimic-iv的话
+
     ddi_matrix = ddi_4_matrix
-    #=========================================
+
     ehr_matrix = dill.load(open('datas/ehr_adj_final.pkl', 'rb'))
     ddi_matrix = torch.tensor(ddi_matrix,device=device)
-    # ddi_matrix = torch.concat([torch.zeros_like(ddi_matrix[0]).unsqueeze(dim=-1),ddi_matrix],dim=-1)
-    # ddi_matrix = torch.concat([torch.zeros_like(ddi_matrix[0]).unsqueeze(dim=0),ddi_matrix],dim=0)
 
 
-    #=========case_study=========
-    # case_num = 1800
-    # # for i in voc.keys():
-    # #     for j in voc[i].idx2word:
-    # #         print(j)
-    # # return None
-    # data_case = [data[case_num]]
-    # dill.dump(data_case, open('datas/iii_case/{}.pkl'.format(case_num), mode='wb'))
-    # model = demo_net(emb_dim=64, voc_size=voc_size, device=device, ddi_graph=ddi_4_matrix, ).to(device)
-    # model.load_state_dict(torch.load(r'state_dict\iii\iii_f1_0.7012264728546143.pt'))
-    # case_loader = DataLoader(data_case, batch_size=1, collate_fn=pad_batch_v2_eval, shuffle=False, pin_memory=False)
-    # ccs_case_loader = DataLoader([[[j[3], j[4], j[2]] for j in i] for i in data_case], batch_size=1,
-    #                              collate_fn=pad_batch_v2_eval, shuffle=False, pin_memory=False)
-    # case_loader = [patient[:5] for patient in case_loader]
-    # ccs_case_loader = [patient[:2] + patient[3:] for patient in ccs_case_loader]
-    # case_loader = [case_loader[patient] + ccs_case_loader[patient]
-    #                for patient in range(len(case_loader))]
-    # f_case = open(r'D:\PyCharm\projects\neurIPS_bo\实验\案例分析\iii\{}\MRLN_{}.txt'.format(case_num, case_num),
-    #               'w+')
-    # case_study(model, case_loader, voc, file=f_case)
-    # f_case.close()
-    # return None
-    #============================
+
+    
     print(voc_size)
-    # return None
-    #=============train_data_load===============
+
     train_loader = DataLoader([[j[:3] for j in i] for i in data_train], batch_size=1, collate_fn=pad_batch_v2_train, shuffle=False, pin_memory=False)
     ccs_train_loader = DataLoader([[[j[3],j[4],j[2]] for j in i] for i in data_train], batch_size=1, collate_fn=pad_batch_v2_train, shuffle=False, pin_memory=False)
-    # print(train_loader[0])
+
     train_loader = [patient[:5] for patient in train_loader]
     ccs_train_loader = [patient[:2]+patient[3:] for patient in ccs_train_loader]
 
     train_loader = [train_loader[patient]+ccs_train_loader[patient]
                     for patient in range(len(train_loader))]
-    # return None
-    #===========================================
-    #===============eval_data_load===============
+
     eval_loader = DataLoader([[j[:3] for j in i] for i in data_eval], batch_size=1, collate_fn=pad_batch_v2_eval,
                               shuffle=False, pin_memory=False)
     ccs_eval_loader = DataLoader([[[j[3], j[4], j[2]] for j in i] for i in data_eval], batch_size=1,
@@ -168,15 +140,13 @@ def main(temp_number=None):
     eval_loader = [eval_loader[patient]+ccs_eval_loader[patient]
                     for patient in range(len(eval_loader))]
     mimic_printer = printer()
-    #============================================
+
     model = demo_net(emb_dim=64, voc_size=voc_size, device=device, ddi_graph=ddi_4_matrix, ).to(device)
-    # model.load_state_dict(torch.load(r'state_dict\iii\iii_f1_0.7012264728546143.pt'))
+
     print('parameters', get_n_params(model))
     optimizer = Adam(model.parameters(), lr=0.0001)
     EPOCH = 40
     demo_loss_1 = nn.BCELoss()
-    # demo_loss_1 = FocalLoss(gamma=1.2,alpha=0.5)
-    # demo_loss_2 = nn.MultiLabelMarginLoss()
 
 
     f = open(r'multi_visit\iv\{}.txt'.format(temp_number), mode='w+')
@@ -254,10 +224,7 @@ def main(temp_number=None):
                 co = 0.02
 
                 loss = 1*(loss_1 + 0.02*loss_2) + 0.3*(ccs_loss_1 + 0.02*ccs_loss_2)
-                # ddi_gt_adjust = (1-gt_container)*(1-gt_container).unsqueeze(dim=-1)
-                # ddi_loss = (ddi_gt_adjust*ddi_matrix*output[1]).sum(dim=-1)
-                # if ddi_rate >= 0.7:
-                #     loss += 0.01*ddi_loss
+
 
                 loss.backward()
                 optimizer.step()
@@ -296,19 +263,7 @@ def main(temp_number=None):
                 gt_temp[0] = 0
                 avg_med += vst.sum()
                 out_labels = torch.where(vst > 0.35, 1.0, 0.0)
-                #=============================
-                # vst_temp = vst-gt_temp
-                # temp_rand = random.uniform(0,1)
-                # if random.randint(0,10)>7:
-                #     mimic_printer.append('output',vst_temp)
-                # else:
-                #
-                #     vst_temp = torch.where(torch.abs(vst_temp)>temp_rand,vst_temp*(1-temp_rand),vst_temp)
-                #     #vst_temp = torch.where(vst_temp < -0.5, (vst_temp+0.3)*torch.abs(vst_temp+0.3), vst_temp)
-                #     mimic_printer.append('output', (vst_temp))
-                # mimic_printer.append('output_2',output_2[idx]-gt_temp)
-                # mimic_printer.append('output_3', output_3[idx] - gt_temp)
-                #=============================
+
                 out_numbers = torch.nonzero(out_labels.squeeze())
                 ddi_temp_container = out_labels*out_labels.T.unsqueeze(dim=-1)
                 labels_container.append(out_labels)
@@ -361,26 +316,7 @@ def main(temp_number=None):
               'ddi_rate = {}\n'.format(ddi_rate),
               'avg_med = {}\n'.format(avg_med/count)
                )
-        # print('\navg_prc = {}\n'.format(avg_precise),
-        #       'avg_rec = {}\n'.format(avg_recall),
-        #       'jac = {}\n'.format(jac),
-        #       'prauc = {}\n'.format(prauc),
-        #       'avg_f1 = {}\n'.format(avg_f1),
-        #       'ddi_rate = {}\n'.format(ddi_rate),
-        #       'avg_med = {}\n'.format(avg_med / count),file=f
-        #       )
-        # mimic_printer.label_print_in('output','green')
-        # mimic_printer.label_print_out('ICD & CCS',x='Label',y='Value')
-        # mimic_printer.label_print_in('output_2', 'blue')
-        # mimic_printer.label_print_out('Only ICD', x='Label', y='Value')
-        # mimic_printer.label_print_in('output_3', 'red')
-        # mimic_printer.label_print_out('Only ccs', x='Label', y='Value')
-        #
-        #
-        # mimic_printer.label_print_in('output', 'green')
-        # mimic_printer.label_print_in('output_2', 'blue')
-        # mimic_printer.label_print_in('output_3', 'red')
-        # mimic_printer.label_print_out('Overview',x='Label',y='Value')
+
         print(f'epoch{epoch}\n')
 
         # torch.save(model.state_dict(),'state_dict\iii_f1_{}.pt'.format(avg_f1))
@@ -392,6 +328,3 @@ def main(temp_number=None):
 for i in [1]:
     main(i)
 
-# mole_encoder = MolecularGraphNeuralNetwork(N_fingerprint, mole_dim, layer_hidden=2, device=device)
-# mole_emb = mole_encoder(MPNN_molecule_Set)
-# print(mole_emb.size())
