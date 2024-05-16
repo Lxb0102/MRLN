@@ -36,7 +36,7 @@ We provide the dataset in the [datas](datas/) folder.
   │--util.py
   |--ICD2CCS.py
   
---data
+--datas
   │--ddi_A_final.pkl
   |--diag_proc_ccs
   |--diag_proc_ccs_4.pkl
