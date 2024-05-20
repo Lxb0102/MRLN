@@ -1,4 +1,4 @@
-# MGRN
+# MRLN
 
 ![](fig/1.png)
 
