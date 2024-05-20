@@ -2,8 +2,7 @@
 
 ![](fig/1.png)
 
-**This is the data and code for our paper** `Multi-view gating retrieval network for robust drug
-recommendation`.
+**This is the data and code for our paper** `Towards Accurate Medication Recommendation: Simulating Doctors' Prescription with Multi-task Representation Learning`.
 
 ## Prerequisites
 
