@@ -1,5 +1,5 @@
 # MRLN
-**This is the data and code for our paper** `Simulating Doctor Prescribing Medication with Multi-task Representation Learning`.
+**This is the data and code for our paper** `Retrieval Augmented Multi-granularity Representation Learning for Medication Recommendation`.
 
 ## Prerequisites
 
@@ -62,4 +62,11 @@ On a single NVIDIA® GeForce RTX™ 3080 Ti (10GB) GPU, a typical run takes 2.5 
 ## TODO
 More training scripts for easy training will be added soon.
 
+Please feel free to contact me xiaobi.li@dlmu.edu.cn for any question.
+
+Partial credit to previous reprostories:
+
+- https://github.com/sjy1203/GAMENet
+- https://github.com/ycq091044/SafeDrug
+- https://github.com/BarryRun/COGNet
 
