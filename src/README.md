@@ -2,7 +2,7 @@
 
 ![](fig/1.png)
 
-**This is the data and code for our paper** `Towards Accurate Medication Recommendation: Simulating Doctors' Prescription with Multi-task Representation Learning`.
+**This is the data and code for our paper** `Retrieval Augmented Multi-granularity Representation Learning for Medication Recommendation`.
 
 ## Prerequisites
 
