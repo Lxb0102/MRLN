@@ -46,7 +46,3 @@ On a single NVIDIA® GeForce RTX™ 3080 Ti (16GB) GPU, a typical run takes hour
 *TODO: More training scripts for easy training will be added soon.*
 
 
-## Authors
-
-**Email:** maryflynn5644@gmail.com \
-**Site:** [GitHub](https://github.com/kyosen258)
