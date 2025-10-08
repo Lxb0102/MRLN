@@ -57,7 +57,7 @@ use the script ```python ICD2CCS.py``` to obtain CCS labels and attach them on c
 
 Please run `train.py` to begin training and testing.
 
-On a single NVIDIA® GeForce RTX™ 3080 Ti (10GB) GPU, a typical run takes 2.5 hours to complete.
+On a single NVIDIA® GeForce RTX™ 3080 Ti (10GB) GPU.
 
 ## TODO
 More training scripts for easy training will be added soon.
