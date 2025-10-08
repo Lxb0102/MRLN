@@ -62,9 +62,3 @@ On a single NVIDIA® GeForce RTX™ 3080 Ti (10GB) GPU, a typical run takes 2.5 
 ## TODO
 More training scripts for easy training will be added soon.
 
-Partial credit to previous reprostories:
-
-- https://github.com/sjy1203/GAMENet
-- https://github.com/ycq091044/SafeDrug
-- https://github.com/BarryRun/COGNet
-
