@@ -41,7 +41,7 @@ We provide the dataset in the [datas](datas/) folder.
 
 Please run `train.py` to begin training and testing.
 
-On a single NVIDIA® GeForce RTX™ 3080 Ti (16GB) GPU, a typical run takes hours to complete.
+On a single NVIDIA® GeForce RTX™ 3080 Ti (10GB) GPU, a typical run takes hours to complete.
 
 *TODO: More training scripts for easy training will be added soon.*
 
